@@ -3,16 +3,16 @@
 Converts Corpus monodicum data to a variety of other relevant formats. Just work in progress. Feel free to contribute and to contact me if you have constructive feedback!
 
 ## Usage
-``
+```Shell
 npm run convert i=examples o=out type=monodiToGABC
-``
+```
 Files in 'examples' folder have to be named data.json by default (this will be more flexible in the future)
 
 ## Result
 
 Just GABC and all work in progress!
 It converts a monodi+ json file like this:
-``
+```json
 {
   "kind": "RootContainer",
   "uuid": "515d789e-2a98-41fa-83ce-ab1158064e64",
@@ -159,14 +159,14 @@ It converts a monodi+ json file like this:
   "comments": [],
   "documentType": "Level1"
 }
-``
+```
 
 into gabc notation:
 
-``
+```
 (c3)
 A(fg/g)men(ef//f/e/d) 
-``
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
