@@ -200,7 +200,6 @@ export default class JsonToGabcConverter {
      */
     transform_file(inputFilePath: string, outputFolder: string) {
         fs.readFile(inputFilePath, "utf-8", (error, text) => {
-            //console.log(text)
             if (!error) {
                 this.dataOut = this.transform(text);
                 if (!this.dataOut) {
