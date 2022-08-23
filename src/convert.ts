@@ -2,11 +2,11 @@ import monodiToGabcConverter from './monodiToGABC/converter.class';
 import monodiToMEIConverter from './monodiToMEI/converter.class';
 import * as Path from "path";
 import {PathLike} from "fs";
+import ErrnoException = NodeJS.ErrnoException;
 
 const fs = require('fs');
 const path = require('path');
 
-const argument_exists = (label: string) => Object.keys(args).indexOf(label) !== -1
 
 type ConverterType = "monodiToGABC" | "monodiToMEI";
 type FilePath = {
@@ -34,12 +34,13 @@ const getArguments = () => {
  * @param filePaths
  * @param filenameRegex
  */
-const splitFileNameFromPath = (filePaths: any, filenameRegex: RegExp): FilePath[] => filePaths.filter((path: string) =>
-    path.match(filenameRegex)).map((path: string) => {
-    const folders = path.split("/");
-    const filename = folders.pop();
-    return {folders: folders.join("/"), filename};
-})
+const splitFileNameFromPath = (filePaths: any, filenameRegex: RegExp): FilePath[] =>
+    filePaths.filter((path: string) => path.match(filenameRegex))
+        .map((path: string) => {
+        const folders = path.split("/");
+        const filename = folders.pop();
+        return {folders: folders.join("/"), filename};
+    })
 
 /**
  * Converts the whole content of a folder recursively and writes it to outputFolder. Folder structure remains.
@@ -50,7 +51,7 @@ const convertFolder = (inputFolder: string,
                        filenameRegex: RegExp = /data\.json$/) => {
 
     const files = splitFileNameFromPath(getFiles(inputFolder), filenameRegex);
-
+    console.log(files);
     files.forEach((file: FilePath) => {
         const folders = file.folders;
         const outPath = path.join(outputFolder, folders);
@@ -68,19 +69,44 @@ const convertFolder = (inputFolder: string,
  * Converts one file and writes it to outputFolder
  */
 const convertFile = (filePath: string, outputFolder: string, type: ConverterType) => {
+    console.log("Convert File")
     if (type === "monodiToGABC") {
-        const doc = new monodiToGabcConverter();
-        doc.transform_file(filePath, outputFolder);
+        transform_file(filePath, outputFolder, new monodiToGabcConverter());
     } else if (type === 'monodiToMEI') {
-        const doc = new monodiToMEIConverter();
-        doc.transform_file(filePath, outputFolder);
+        transform_file(filePath, outputFolder, new monodiToMEIConverter());
     }
 }
 
 /**
+ * Open file, transform content, write file.
+ */
+const transform_file = (inputFilePath: string, outputFolder: string, transformer: any) => {
+    fs.readFile(inputFilePath, "utf-8", (error: ErrnoException, text: string) => {
+        if (!error) {
+            const dataOut = transformer.transform(text);
+            if (!dataOut) {
+                console.log("Error: data undefined")
+                return false;
+            }
+            const outputFile = inputFilePath.replace(/.*\/(.*?)\.json/, "$1.gabc")
+            fs.writeFile(outputFolder + "/" + outputFile, dataOut, (error: ErrnoException) => {
+                if (error) {
+                    console.error("Error: Couldn't write file", error);
+                    return false;
+                }
+            })
+        } else {
+            console.error("Node FS Error. Couldn't read file.")
+            return false;
+        }
+    })
+}
+
+
+/**
  * Get list of files recursively
  */
-function getFiles(root: any, files: any = [], prefix: any = '') {
+const getFiles = (root: any, files: any = [], prefix: any = '') => {
     prefix = prefix || ''
     files = files || []
 
@@ -102,11 +128,15 @@ function getFiles(root: any, files: any = [], prefix: any = '') {
  *
  */
 const args = getArguments();
-if (argument_exists("type") && argument_exists("i") && argument_exists("o")) {
+if ("type" in args && "i" in args && "o" in args) {
     if (args['type'] === 'monodiToGABC') {
-        convertFolder(args['i'], args['o'], 'monodiToGABC')
+        console.log("Converting to GABC")
+        convertFolder(args['i'], args['o'], 'monodiToGABC');
     } else if (args['type'] === 'monodiToMEI') {
-
-        convertFolder(args['i'], args['o'], 'monodiToMEI')
+        convertFolder(args['i'], args['o'], 'monodiToMEI');
+    } else {
+        console.error("You gave no valid Type");
     }
+} else {
+    console.error("You have to provide arguments 'i', 'o' and 'type");
 }

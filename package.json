@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/**.test.ts",
     "build": "npx tsc",
-    "convert": "node dist/monodiJson-to-gabc/convert.js",
+    "convert": "node dist/convert.js",
     "watch": "npx tsc -w"
   },
   "author": "Tim Eipert",
