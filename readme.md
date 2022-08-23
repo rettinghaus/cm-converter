@@ -1,5 +1,7 @@
 # Corpus monodicum Data Converter 
 
+![GitHub](https://img.shields.io/github/license/timeipert/cm-converter)
+
 Converts Corpus monodicum data to a variety of other relevant formats. Just work in progress. Feel free to contribute and to contact me if you have constructive feedback!
 
 ## Usage
