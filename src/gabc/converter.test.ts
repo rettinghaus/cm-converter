@@ -39,10 +39,10 @@ annotation: 20
     })
     describe('transform_note', () => {
         it('should return the right character when clef change is not needed', () => {
-            const char1 = doc.transform_note("a", 3, 1);
+            const char1 = doc.transformNote("a", 3, 1);
             expect(char1['char']).to.equal("a");
             expect(char1['clef_change']).to.be.false;
-            const char2 = doc.transform_note("d", 4, 1);
+            const char2 = doc.transformNote("d", 4, 1);
             expect(char2['char']).to.equal("d");
             expect(char2['clef_change']).to.be.false;
         });
@@ -61,7 +61,7 @@ annotation: 20
         const expectedOutput = "(c3)\n" +
             "A(fg/g)men(ef//f/e/d) ";
         it("should work with a small document", () => {
-            const result = doc.toGabc(JSON.stringify(input));
+            const result = doc.transformWrite(JSON.stringify(input));
             expect(result).to.equal(expectedOutput);
         })
 

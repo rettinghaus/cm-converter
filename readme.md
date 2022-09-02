@@ -6,11 +6,15 @@
 
 ![GitHub](https://img.shields.io/github/license/timeipert/cm-converter)
 
-Converts Corpus monodicum data to a variety of other relevant formats. Just work in progress. Feel free to contribute and to contact me if you have constructive feedback!
+In the future, the tool should allow various format conversions related to Corpus monodicum to make the data accessible to various already existing tools.
+Monodi+, a software developed by CM for editing monophonic notation, relies on a JSON format highly oriented to the latest MEI specification. The decoupling of monodi+ and the current MEI version is due to the unclear nature of the MEI Neumes Module evolution. Another reason is that only a small part of the MEI specification is necessary for the kind of representation convention in Corpus monodicum.
+
+
+
 
 ## Usage
 ```Shell
-npm run convert i=examples o=out type=monodiToGABC
+npm run convert i=examples o=out type=GABC
 ```
 Files in 'examples' folder have to be named data.json by default (this will be more flexible in the future)
 

@@ -1,6 +1,6 @@
 import {Converter} from "../generic/converter.class";
 
-export default class MEI implements Converter {
+export default class Volpiano implements Converter {
     constructor() {
     }
 

@@ -5,9 +5,14 @@ export class Helper {
     constructor() {
     }
 
+    cleanSyllable = (text: string) =>
+        text.replace("-", "").replace(" ", "")
+
+
     existsZeileContainer = (d: any) => d
         .map((e: any) => e['kind'] === "ZeileContainer")
         .filter((e: boolean) => e).length !== 0;
+
     /**
      * Flattening structure to staff object recursively
      */
