@@ -1,5 +1,5 @@
-import monodiToGabcConverter from './monodiToGABC/converter.class';
-import monodiToMEIConverter from './monodiToMEI/converter.class';
+import GABC from './gabc/converter.class';
+import MEI from './mei/converter.class';
 import * as Path from "path";
 import {PathLike} from "fs";
 import ErrnoException = NodeJS.ErrnoException;
@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-type ConverterType = "monodiToGABC" | "monodiToMEI";
+type ConverterType = "GABC" | "MEI";
 type FilePath = {
     folders: string;
     filename: string;
@@ -70,10 +70,10 @@ const convertFolder = (inputFolder: string,
  */
 const convertFile = (filePath: string, outputFolder: string, type: ConverterType) => {
     console.log("Convert File")
-    if (type === "monodiToGABC") {
-        transform_file(filePath, outputFolder, new monodiToGabcConverter());
-    } else if (type === 'monodiToMEI') {
-        transform_file(filePath, outputFolder, new monodiToMEIConverter());
+    if (type === "GABC") {
+        transform_file(filePath, outputFolder, new GABC());
+    } else if (type === 'MEI') {
+        transform_file(filePath, outputFolder, new MEI());
     }
 }
 
@@ -83,7 +83,7 @@ const convertFile = (filePath: string, outputFolder: string, type: ConverterType
 const transform_file = (inputFilePath: string, outputFolder: string, transformer: any) => {
     fs.readFile(inputFilePath, "utf-8", (error: ErrnoException, text: string) => {
         if (!error) {
-            const dataOut = transformer.transform(text);
+            const dataOut = transformer.transform_write(text);
             if (!dataOut) {
                 console.log("Error: data undefined")
                 return false;
@@ -129,11 +129,11 @@ const getFiles = (root: any, files: any = [], prefix: any = '') => {
  */
 const args = getArguments();
 if ("type" in args && "i" in args && "o" in args) {
-    if (args['type'] === 'monodiToGABC') {
+    if (args['type'] === 'GABC') {
         console.log("Converting to GABC")
-        convertFolder(args['i'], args['o'], 'monodiToGABC');
-    } else if (args['type'] === 'monodiToMEI') {
-        convertFolder(args['i'], args['o'], 'monodiToMEI');
+        convertFolder(args['i'], args['o'], 'GABC');
+    } else if (args['type'] === 'MEI') {
+        convertFolder(args['i'], args['o'], 'MEI');
     } else {
         console.error("You gave no valid Type");
     }

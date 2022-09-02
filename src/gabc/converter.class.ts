@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import {Helper} from "../generic/helper";
 
-export default class JsonToGabcConverter {
+export default class GABC {
     private _data: any = "";
     dataOut: string;
     hasHeader = false;
@@ -148,8 +148,8 @@ export default class JsonToGabcConverter {
     /**
      * Transforms the whole document.
      */
-    transform(data: string): string {
-        console.log('transforms')
+    transform_write(data: string): string {
+        console.log('transform')
         this._data = JSON.parse(data)
         console.log("Data length: ", JSON.stringify(this._data).length)
 

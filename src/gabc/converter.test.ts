@@ -1,9 +1,10 @@
 import GabcDocument from './converter.class';
 import {expect, assert} from 'chai';
 import 'mocha';
+import GABC from "./converter.class";
 
 describe('Gatbc Model', () => {
-    const doc = new GabcDocument();
+    const doc = new GABC();
     describe('create_header', () => {
         it('should return a valid header', () => {
             const hasNoHeader = doc.create_header("1", "2", "3",
@@ -60,7 +61,7 @@ annotation: 20
         const expectedOutput = "(c3)\n" +
             "A(fg/g)men(ef//f/e/d) ";
         it("should work with a small document", () => {
-            const result = doc.transform(JSON.stringify(input));
+            const result = doc.toGabc(JSON.stringify(input));
             expect(result).to.equal(expectedOutput);
         })
 

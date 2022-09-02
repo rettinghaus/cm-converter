@@ -4,7 +4,7 @@ Converts Corpus monodicum data to a variety of other relevant formats. Just work
 
 ## Usage
 ``
-npm run convert i=examples o=out
+npm run convert i=examples/ o=out type=GABC
 ``
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

@@ -1,13 +1,16 @@
 /**
- * Flattening structure to staff object recursively
+ * Helper Class - various utility functions
  */
 export class Helper {
     constructor() {
     }
+
     existsZeileContainer = (d: any) => d
         .map((e: any) => e['kind'] === "ZeileContainer")
         .filter((e: boolean) => e).length !== 0;
-
+    /**
+     * Flattening structure to staff object recursively
+     */
     flatStaffRecur(d: any): any {
         if (!d) return []
         if (this.existsZeileContainer(d)) {
