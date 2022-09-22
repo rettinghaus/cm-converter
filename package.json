@@ -7,7 +7,9 @@
     "test": "mocha -r ts-node/register src/**/**.test.ts",
     "build": "npx tsc",
     "convert": "node dist/convert.js",
-    "watch": "npx tsc -w"
+    "watch": "npx tsc -w",
+    "developGABC": "node dist/convert.js i=examples/ o=out/ type=GABC",
+    "developMEI": "node dist/convert.js i=examples/ o=out/ type=MEI"
   },
   "author": "Tim Eipert",
   "license": "ISC",

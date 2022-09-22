@@ -71,19 +71,19 @@ const convertFolder = (inputFolder: string,
 const convertFile = (filePath: string, outputFolder: string, type: ConverterType) => {
     console.log("Convert File")
     if (type === "GABC") {
-        transform_file(filePath, outputFolder, new GABC());
+        transformFile(filePath, outputFolder, new GABC());
     } else if (type === 'MEI') {
-        transform_file(filePath, outputFolder, new MEI());
+        transformFile(filePath, outputFolder, new MEI());
     }
 }
 
 /**
  * Open file, transform content, write file.
  */
-const transform_file = (inputFilePath: string, outputFolder: string, transformer: any) => {
+const transformFile = (inputFilePath: string, outputFolder: string, transformer: any) => {
     fs.readFile(inputFilePath, "utf-8", (error: ErrnoException, text: string) => {
         if (!error) {
-            const dataOut = transformer.transform_write(text);
+            const dataOut = transformer.transformWrite(text);
             if (!dataOut) {
                 console.log("Error: data undefined")
                 return false;
@@ -132,7 +132,7 @@ if ("type" in args && "i" in args && "o" in args) {
     if (args['type'] === 'GABC') {
         console.log("Converting to GABC")
         convertFolder(args['i'], args['o'], 'GABC');
-    } else if (args['type'] === 'MEI') {
+    } else if (args['type'] === 'MEIi') {
         convertFolder(args['i'], args['o'], 'MEI');
     } else {
         console.error("You gave no valid Type");
