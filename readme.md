@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 # Corpus monodicum Data Converter
-=======
-# Corpus monodicum Data Converter 
->>>>>>> 221692623fe45f58dd6507ca274c0d43bc6598c3
+
 
 ![GitHub](https://img.shields.io/github/license/timeipert/cm-converter)
 
