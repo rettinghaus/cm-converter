@@ -9,15 +9,20 @@ Monodi+, a software developed by CM for editing monophonic notation, relies on a
 
 
 
-## Usage
+## Test Usage
 ```Shell
 npm run convert i=examples o=out type=GABC
 ```
-Files in 'examples' folder have to be named data.json by default (this will be more flexible in the future)
+Files in 'examples' folder have to be named data.json by default (this will be more flexible in the future).
+
+For MEI conversion:
+```Shell
+npm run convert i=examples o=out type=MEI
+```
 
 ## Result
 
-Just GABC and all work in progress!
+Just GABC (and a little bit MEI) and all work in progress!
 It converts a monodi+ json file like this:
 ```json
 {
