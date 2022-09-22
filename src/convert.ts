@@ -37,10 +37,10 @@ const getArguments = () => {
 const splitFileNameFromPath = (filePaths: any, filenameRegex: RegExp): FilePath[] =>
     filePaths.filter((path: string) => path.match(filenameRegex))
         .map((path: string) => {
-        const folders = path.split("/");
-        const filename = folders.pop();
-        return {folders: folders.join("/"), filename};
-    })
+            const folders = path.split("/");
+            const filename = folders.pop();
+            return {folders: folders.join("/"), filename};
+        })
 
 /**
  * Converts the whole content of a folder recursively and writes it to outputFolder. Folder structure remains.
@@ -88,7 +88,7 @@ const transformFile = (inputFilePath: string, outputFolder: string, transformer:
                 console.log("Error: data undefined")
                 return false;
             }
-            const outputFile = inputFilePath.replace(/.*\/(.*?)\.json/, "$1.gabc")
+            const outputFile = inputFilePath.replace(/.*\/(.*?)\.json/, "$1" + transformer.file_extension)
             fs.writeFile(outputFolder + "/" + outputFile, dataOut, (error: ErrnoException) => {
                 if (error) {
                     console.error("Error: Couldn't write file", error);
@@ -132,7 +132,7 @@ if ("type" in args && "i" in args && "o" in args) {
     if (args['type'] === 'GABC') {
         console.log("Converting to GABC")
         convertFolder(args['i'], args['o'], 'GABC');
-    } else if (args['type'] === 'MEIi') {
+    } else if (args['type'] === 'MEI') {
         convertFolder(args['i'], args['o'], 'MEI');
     } else {
         console.error("You gave no valid Type");

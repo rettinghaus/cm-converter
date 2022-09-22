@@ -36,6 +36,7 @@ export default class GABC implements Converter {
     hasHeader = false;
     currentClef = 2;
     helper = new Helper;
+    file_extension = ".gabc";
 
     constructor() {
     }
